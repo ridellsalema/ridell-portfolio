@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ridell Salema - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Michroma', monospace;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #1a1a1a;
+            padding: 1rem 0;
+            border-bottom: 2px solid #00d4ff;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+
+        .profile-section {
+            background: #2a2a2a;
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 4px solid #00d4ff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #00d4ff;
+        }
+
+        .hero h2 {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            background: #1a1a1a;
+            color: #00d4ff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 2px solid #00d4ff;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #00d4ff;
+            color: #1a1a1a;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #00d4ff;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: #2a2a2a;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #00d4ff;
+        }
+
+        .card h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #333;
+            transition: border-color 0.3s ease;
+        }
+
+        .skill-item:hover {
+            border-color: #00d4ff;
+        }
+
+        .skill-item i {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-item p {
+            color: #ffffff;
+            font-size: 0.8rem;
+        }
+
+        /* Project Tech Tags */
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: #00d4ff;
+            color: #0a0a0a;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Contact Form */
+        .contact-section {
+            background: #1a1a1a;
+            padding: 60px 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00d4ff;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: 'Michroma', monospace;
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Michroma', monospace;
+            font-size: 1rem;
+            width: 100%;
+            transition: opacity 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #333;
+        }
+
+        .footer p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .social-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">RS</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="profile-section">
+                <div class="profile-img">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h1>Ridell Salema</h1>
+                <h2>Software Engineering Student | Future Cybersecurity Entrepreneur</h2>
+                <p>Passionate about building secure digital solutions and exploring the intersection of technology, finance, and cybersecurity. Currently studying at Africa University while developing innovative projects that solve real-world problems.</p>
+                
+                <div class="social-links">
+                    <a href="https://github.com/ridellsalema" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/ridellsalema" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://instagram.com/ridellsalema" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:ridellsalema@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <p>Software Engineering student at Africa University, building a strong foundation in computer science while specializing in cybersecurity and financial technology applications.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-shield-alt"></i> Cybersecurity Passion</h3>
+                    <p>Aspiring to establish a cybersecurity consultancy firm. Currently exploring threat detection, ethical hacking, and building secure systems that protect businesses and individuals.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> Finance Interest</h3>
+                    <p>Deeply interested in fintech and how technology can revolutionize banking, investment tracking, and fraud detection through innovative data-driven solutions.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-heart"></i> Personal Interests</h3>
+                    <p>Tennis enthusiast, car and aviation lover, and naturally curious about new technologies. Always eager to connect with like-minded individuals and learn from diverse perspectives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fab fa-react"></i>
+                    <p>React</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-js"></i>
+                    <p>JavaScript</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-python"></i>
+                    <p>Python</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-database"></i>
+                    <p>SQL</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-node-js"></i>
+                    <p>Node.js</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-html5"></i>
+                    <p>HTML5</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-css3-alt"></i>
+                    <p>CSS3</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-code"></i>
+                    <p>C</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-android"></i>
+                    <p>Kotlin</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-git-alt"></i>
+                    <p>Git</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3><i class="fas fa-briefcase"></i> ZimTask</h3>
+                    <p>A freelancing platform for Zimbabweans, combining features from TaskRabbit and Fiverr. Connecting local talent with opportunities while supporting the domestic economy.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-chart-bar"></i> Investment Deal Tracker</h3>
+                    <p>Investment banking deal tracking system with AI integration. Features local Ollama model deployment for intelligent deal summarization and analysis.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">AI/ML</span>
+                        <span class="tech-tag">Ollama</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-search"></i> Bank Fraud Detection</h3>
+                    <p>AI-powered fraud detection system analyzing transaction patterns to generate risk scores. Continuously evolving with machine learning algorithms.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">ML</span>
+                        <span class="tech-tag">SQL</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-bug"></i> CyberLearn Platform</h3>
+                    <p>Educational platform designed to be intentionally vulnerable, teaching ethical hacking through hands-on experience with controlled vulnerabilities.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Security</span>
+                        <span class="tech-tag">Education</span>
+                        <span class="tech-tag">Web</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="purpose">Purpose of Contact</label>
+                    <select id="purpose" name="purpose" required>
+                        <option value="">Select your purpose</option>
+                        <option value="collaboration">🤝 Collaboration Opportunity</option>
+                        <option value="mentorship">🎓 Mentorship & Learning</option>
+                        <option value="business">💼 Business Inquiry</option>
+                        <option value="networking">🌟 Networking & Friendship</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Share your thoughts, ideas, or just say hello!"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Ridell Salema. Built with passion for technology and innovation.</p>
+        </div>
+    </footer>
+</body>
+</html>
