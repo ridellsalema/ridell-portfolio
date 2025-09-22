@@ -307,6 +307,42 @@
             font-size: 0.9rem;
         }
 
+        
+        /* === New Features === */
+
+        .theme-toggle {
+            background: #00d4ff; color: #0a0a0a; border: none; padding: 0.5rem;
+            border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover { background: #ffffff; transform: rotate(180deg); }
+
+        body.light-theme { background: #f5f5f5; color: #2a2a2a; }
+
+        .toggleable-content { display: none; margin-top:1rem;   padding:1rem;
+        background:rgba(0,212,255,0.1); border-radius:8px; border-left:4px solid #00d4ff; }
+
+        .toggleable-content.active { display: block; }
+
+        .toggle-btn {
+            background:none; border:2px solid #00d4ff; color:#00d4ff; padding:0.5rem 1rem;
+            border-radius:5px; cursor:pointer; font-family:'Michroma', monospace;
+            font-size:0.8rem; transition:all 0.3s ease; margin-top:1rem;
+        }
+
+        .toggle-btn:hover { background:#00d4ff; color:#0a0a0a; }
+
+        .error-message { color:#ff4757; font-size:0.8rem; margin-top:0.5rem; display:none; }
+
+        .error-message.show { display:block; }
+
+        .success-message {
+            background:rgba(46,213,115,0.2); color:#2ed573; padding:1rem; border-radius:5px;
+            margin-top:1rem; display:none; border:1px solid #2ed573;
+        }
+
+        .success-message.show { display:block; }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -336,6 +372,9 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                  </button>
                 <div class="logo">RS</div>
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
@@ -492,14 +531,16 @@
     <section id="contact" class="contact-section">
         <div class="container">
             <h2>Get In Touch</h2>
-            <form class="contact-form">
+            <form class="contact-form" id="contactForm">
                 <div class="form-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" required>
+                    <div class="error-message" id="name-error">Please enter your full name</div>
                 </div>
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
                 </div>
                 <div class="form-group">
                     <label for="purpose">Purpose of Contact</label>
@@ -510,21 +551,100 @@
                         <option value="business">💼 Business Inquiry</option>
                         <option value="networking">🌟 Networking & Friendship</option>
                     </select>
+                    <div class="error-message" id="purpose-error">Please select a purpose</div>
                 </div>
                 <div class="form-group">
                     <label for="message">Your Message</label>
-                    <textarea id="message" name="message" rows="5" required placeholder="Share your thoughts, ideas, or just say hello!"></textarea>
+                    <textarea id="message" name="message" rows="5" required placeholder="Share your thoughts, ideas, or just say hello!" minlength="10"></textarea>
+                    <div class="error-message" id="message-error">Please enter a message (at least 10 characters)</div>
                 </div>
                 <button type="submit" class="submit-btn">Send Message</button>
+                <div class="success-message" id="success-message">
+                    🎉 Thank you! Your message has been sent successfully. I'll get back to you soon!
+                </div>
             </form>
         </div>
     </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Ridell Salema. Built with passion for technology and innovation.</p>
         </div>
     </footer>
+
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+          const body = document.body;
+          const icon = document.getElementById('theme-icon');
+          body.classList.toggle('light-theme');
+          if (body.classList.contains('light-theme')) {
+            icon.className = 'fas fa-moon';
+            localStorage.setItem('theme','light');
+          } else {
+            icon.className = 'fas fa-sun';
+            localStorage.setItem('theme','dark');
+          }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+          if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-theme');
+            document.getElementById('theme-icon').className = 'fas fa-moon';
+          }
+        });
+        
+        // Toggle extra content
+        function toggleContent(id) {
+          const content = document.getElementById(id);
+          const btn = content.previousElementSibling;
+          content.classList.toggle('active');
+          btn.textContent = content.classList.contains('active') ? 'Show Less' : 'Learn More';
+        }
+        
+        // Form validation
+        const form = document.querySelector('.contact-form');
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          const name = document.getElementById('name');
+          const email = document.getElementById('email');
+          const purpose = document.getElementById('purpose');
+          const message = document.getElementById('message');
+          clearValidation();
+          let valid = true;
+        
+          if (name.value.trim().length < 2) { showError('name','Name must be at least 2 characters'); valid=false; }
+          else showSuccess('name');
+          const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email.value)) { showError('email','Enter a valid email'); valid=false; }
+          else showSuccess('email');
+          if (purpose.value==='') { showError('purpose','Select a purpose'); valid=false; }
+          else showSuccess('purpose');
+          if (message.value.trim().length<10) { showError('message','Message must be ≥10 characters'); valid=false; }
+          else showSuccess('message');
+        
+          if (valid) { showSuccessMessage(); form.reset(); clearValidation(); }
+        });
+        function showError(field,msg){
+          const f=document.getElementById(field), e=document.getElementById(field+'-error');
+          f.classList.add('error'); f.classList.remove('success'); e.textContent=msg; e.classList.add('show');
+        }
+        function showSuccess(field){
+          const f=document.getElementById(field), e=document.getElementById(field+'-error');
+          f.classList.add('success'); f.classList.remove('error'); e.classList.remove('show');
+        }
+        function clearValidation(){
+          ['name','email','purpose','message'].forEach(f=>{
+            document.getElementById(f).classList.remove('error','success');
+            document.getElementById(f+'-error').classList.remove('show');
+          });
+        }
+        function showSuccessMessage(){
+          const s=document.getElementById('success-message');
+          s.classList.add('show');
+          setTimeout(()=>s.classList.remove('show'),5000);
+        }
+        </script>
+        
+
 </body>
 </html>
