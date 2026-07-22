@@ -27,3 +27,8 @@ tsconfig.tsbuildinfo
 *.pem
 .idea
 .vscode
+
+# Internal development plans & checklists
+implementation_plan.md
+walkthrough.md
+PROJECT_DETAILS_NEEDED.md
